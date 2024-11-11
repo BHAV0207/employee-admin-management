@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../CommonComponents/Header'
-import TaskStatusList from '../EmployeeComponents.jsx/TaskStatusList'
-import TasksList from '../EmployeeComponents.jsx/TasksList'
+import TaskStatusList from '../EmployeeComponents/TaskStatusList'
+import TasksList from '../EmployeeComponents/TasksList'
 
 function Employee() {
   return (
