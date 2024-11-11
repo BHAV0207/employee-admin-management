@@ -3,10 +3,10 @@ import Header from '../CommonComponents/Header'
 import TaskCreationForm from '../AdminCoomp./TaskCreationForm'
 import AssignedTaskList from '../AdminCoomp./AssignedTaskList'
 
-function Admin() {
+function Admin(props) {
   return (
     <div className='p-10'>
-      <Header></Header>
+      <Header changeUser={props.changeUser}></Header>
       <TaskCreationForm></TaskCreationForm>
       <AssignedTaskList></AssignedTaskList>
     </div>
