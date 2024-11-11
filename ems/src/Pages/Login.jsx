@@ -7,7 +7,6 @@ function Login({ login }) {
   const submittingForm = (e) => {
     e.preventDefault();
     login(email , pass);
-
     setEmail("")
     setPass("")
   }
