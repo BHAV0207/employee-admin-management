@@ -1,6 +1,6 @@
 import React from "react";
 
-function Assigne() {
+function Assigne({ allUserData }) {
   return (
     <div className="bg-[#1c1c1c] p-5 rounded mt-5">
       <div className="bg-red-400 mb-2 py-2 px-4 flex justify-between rounded">
@@ -11,81 +11,25 @@ function Assigne() {
         <h5 className="text-lg font-medium w-1/5">Failed</h5>
       </div>
       <div className="">
-        <div className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
-          <h2 className="text-lg font-medium  w-1/5">Name</h2>
-          <h3 className="text-lg font-medium w-1/5 text-blue-400">
-            countNewTask
-          </h3>
-          <h5 className="text-lg font-medium w-1/5 text-yellow-400">
-            ActiveTAskCnt
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-white">
-            CountCompletedTask
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-red-600">
-            FailedTaskCount
-          </h5>
-        </div>
-        <div className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
-          <h2 className="text-lg font-medium  w-1/5">Name</h2>
-          <h3 className="text-lg font-medium w-1/5 text-blue-400">
-            countNewTask
-          </h3>
-          <h5 className="text-lg font-medium w-1/5 text-yellow-400">
-            ActiveTAskCnt
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-white">
-            CountCompletedTask
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-red-600">
-            FailedTaskCount
-          </h5>
-        </div>
-        <div className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
-          <h2 className="text-lg font-medium  w-1/5">Name</h2>
-          <h3 className="text-lg font-medium w-1/5 text-blue-400">
-            countNewTask
-          </h3>
-          <h5 className="text-lg font-medium w-1/5 text-yellow-400">
-            ActiveTAskCnt
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-white">
-            CountCompletedTask
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-red-600">
-            FailedTaskCount
-          </h5>
-        </div>
-        <div className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
-          <h2 className="text-lg font-medium  w-1/5">Name</h2>
-          <h3 className="text-lg font-medium w-1/5 text-blue-400">
-            countNewTask
-          </h3>
-          <h5 className="text-lg font-medium w-1/5 text-yellow-400">
-            ActiveTAskCnt
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-white">
-            CountCompletedTask
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-red-600">
-            FailedTaskCount
-          </h5>
-        </div>
-        <div className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
-          <h2 className="text-lg font-medium  w-1/5">Name</h2>
-          <h3 className="text-lg font-medium w-1/5 text-blue-400">
-            countNewTask
-          </h3>
-          <h5 className="text-lg font-medium w-1/5 text-yellow-400">
-            ActiveTAskCnt
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-white">
-            CountCompletedTask
-          </h5>
-          <h5 className="text-lg font-medium w-1/5 text-red-600">
-            FailedTaskCount
-          </h5>
-        </div>
+        {allUserData.map((e , key) => {
+          return (
+            <div key={key} className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
+              <h2 className="text-lg font-medium  w-1/5">{e.firstName}</h2>
+              <h3 className="text-lg font-medium w-1/5 text-blue-400">
+               {e.taskCounts.newTask}
+              </h3>
+              <h5 className="text-lg font-medium w-1/5 text-yellow-400">
+                {e.taskCounts.active}
+              </h5>
+              <h5 className="text-lg font-medium w-1/5 text-white">
+                {e.taskCounts.completed}
+              </h5>
+              <h5 className="text-lg font-medium w-1/5 text-red-600">
+              {e.taskCounts.failed}
+              </h5>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

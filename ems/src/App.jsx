@@ -48,11 +48,20 @@ function App() {
     }
   };
 
+  const handelUpdatingTask = (updatedAllUserData) => {
+    setAllUserData(updatedAllUserData);
+  };
+
   return (
     <>
       {!user ? <Login login={Logging}></Login> : ""}
       {user == "admin" ? (
-        <Admin changeUser={setUser} data={currentLoggedInUsersData}></Admin>
+        <Admin
+          changeUser={setUser}
+          data={currentLoggedInUsersData}
+          allUserData={allUserData}
+          handelUpdatingTask={handelUpdatingTask}
+        ></Admin>
       ) : user == "employee" ? (
         <Employee
           changeUser={setUser}
