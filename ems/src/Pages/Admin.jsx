@@ -6,7 +6,7 @@ import AssignedTaskList from '../AdminCoomp./AssignedTaskList'
 function Admin(props) {
   return (
     <div className='p-10'>
-      <Header changeUser={props.changeUser}></Header>
+      <Header changeUser={props.changeUser} ></Header>
       <TaskCreationForm></TaskCreationForm>
       <AssignedTaskList></AssignedTaskList>
     </div>

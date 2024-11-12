@@ -20,13 +20,12 @@ function App() {
 
   useEffect(() => {
     const currentUser = localStorage.getItem("loggedInUser");
-    if (currentUser){
+    if (currentUser) {
       const currUser = JSON.parse(currentUser);
       setUser(currUser.role);
       setCurrentLoggedInUsersData(currUser.data);
     }
   }, []);
-
 
   const Logging = (email, password) => {
     if (email == "admin@e.com" && password == "123") {
@@ -38,6 +37,7 @@ function App() {
       );
       if (specificEmployee) {
         setUser("employee");
+        setCurrentLoggedInUsersData(specificEmployee);
         localStorage.setItem(
           "loggedInUser",
           JSON.stringify({ role: "employee", data: specificEmployee })
@@ -54,7 +54,10 @@ function App() {
       {user == "admin" ? (
         <Admin changeUser={setUser} data={currentLoggedInUsersData}></Admin>
       ) : user == "employee" ? (
-        <Employee changeUser={setUser} data={currentLoggedInUsersData}></Employee>
+        <Employee
+          changeUser={setUser}
+          data={currentLoggedInUsersData}
+        ></Employee>
       ) : null}
     </>
   );

@@ -6,9 +6,9 @@ import TasksList from '../EmployeeComponents/TasksList'
 function Employee(props) {
   return (
    <div className='p-10'>
-      <Header changeUser={props.changeUser}></Header>
-      <TaskStatusList></TaskStatusList>
-      <TasksList></TasksList>
+      <Header changeUser={props.changeUser} data={props.data}></Header>
+      <TaskStatusList data={props.data}></TaskStatusList>
+      <TasksList data={props.data}></TasksList>
    </div>
   )
 }
