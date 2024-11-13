@@ -17,10 +17,14 @@ function TaskCreationForm({ allUserData, handelUpdatingTask }) {
 
     if(title == "" || date == "" || assigne == ""|| category=="" || description ==""){
       setGeneralWarning(true)
+      console.log(generalWarning)
+      return
     }
     else{
       setGeneralWarning(false);
+      console.log(generalWarning)
     }
+
 
     const newtask = {
       active: true,
@@ -135,6 +139,7 @@ function TaskCreationForm({ allUserData, handelUpdatingTask }) {
           </button>
         </div>
       </form>
+      {generalWarning && <div className="text-red-500 font-semibold items-center flex justify-center">Please fill all the fields</div>}
     </div>
   );
 }
