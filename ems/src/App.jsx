@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import Admin from "./Pages/Admin";
 import Employee from "./Pages/Employee";
 import Login from "./Pages/Login";
 import { getLocalStorage, setLocalStorage } from "./LocalStorage/LocalStorage";
+
 
 function App() {
   let [user, setUser] = useState(null);
@@ -54,7 +54,9 @@ function App() {
 
   return (
     <>
-      {!user ? <Login login={Logging}></Login> : ""}
+
+
+      {/* {!user ? <Login login={Logging}></Login> : ""}
       {user == "admin" ? (
         <Admin
           changeUser={setUser}
@@ -67,7 +69,7 @@ function App() {
           changeUser={setUser}
           data={currentLoggedInUsersData}
         ></Employee>
-      ) : null}
+      ) : null} */}
     </>
   );
 }
