@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const EmployeeSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  lastName: { type: String, defalut: ""},
   email: { type: String, required: true, unique: true },
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" ,default: [] }],
   taskCounts: {

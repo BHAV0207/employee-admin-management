@@ -38,7 +38,6 @@ router.post("/assigne", async (req, res) => {
   }
 });
 
-
 router.get("/:employeeId", async (req, res) => {
   try {
     const tasks = await Task.find({ assignee: req.params.employeeId });
@@ -47,6 +46,5 @@ router.get("/:employeeId", async (req, res) => {
     res.status(500).json({ message: "Error fetching tasks" });
   }
 });
-
 
 module.exports = router;

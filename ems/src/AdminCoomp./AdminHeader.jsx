@@ -1,6 +1,9 @@
 import React from "react";
+import {useNavigate} from "react-router-dom"
 
 function AdminHeader(props) {
+
+  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("token");

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Employee = require('../Models/Employee');
 
-router.get("/", async (req, res) => {
+router.get("/AllEmployees", async (req, res) => {
   try {
     const employees = await Employee.find().populate("tasks");
     res.json(employees);

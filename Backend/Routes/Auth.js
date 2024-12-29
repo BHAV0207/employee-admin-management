@@ -21,21 +21,24 @@ router.post("/register", async (req, res) => {
       password: hashedPass,
       role,
     });
+    // console.log("saving user")
     await newUser.save();
 
-    if(role === 'user'){
+    if(role == 'user'){
+      // console.log("saving employee")
       const newEmployee = new Employee({
         firstName: name.split(" ")[0], 
         lastName: name.split(" ")[1] || "",
         email,
       })
 
-      newEmployee.save();
+     await newEmployee.save();
     }
 
-
+    // console.log("finishing task")
     res.status(200).json({ message: "registeration success" });
   } catch (err) {
+    // console.log("entering error mode")
     res.status(500).json({ message: "server error" });
   }
 });

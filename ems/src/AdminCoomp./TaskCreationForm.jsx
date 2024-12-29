@@ -1,74 +1,63 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-function TaskCreationForm({ allUserData, handelUpdatingTask }) {
+function TaskCreationForm({ setReRendering, reRendering }) {
   let [title, setTitle] = useState("");
   let [date, setDate] = useState("");
   let [assigne, setAssigne] = useState("");
   let [category, setCategory] = useState("");
   let [description, setDescription] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  let [generalWarning, setGeneralWarning] = useState(false);
 
-  let [invalidUserWarning, setInvalidUserWarning] = useState(false);
-
-  let[generalWarning , setGeneralWarning] = useState(false);
-
-
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
-    if(title == "" || date == "" || assigne == ""|| category=="" || description ==""){
-      setGeneralWarning(true)
-      console.log(generalWarning)
-      return
-    }
-    else{
-      setGeneralWarning(false);
-      console.log(generalWarning)
-    }
-
-
-    const newtask = {
-      active: true,
-      newTask: true,
-      completed: false,
-      failed: false,
-      taskTitle: title,
-      taskDescription: description,
-      taskDate: date,
-      category: category,
-    };
-
-    const existingUserCheck = allUserData.findIndex(
-      (employee) => employee.firstName == assigne
-    );
-
-    let updatedAllUserData;
-
-    if (existingUserCheck != -1) {
-      updatedAllUserData = allUserData.map((ele, indx) => {
-        if (indx == existingUserCheck) {
-          return {
-            ...ele,
-            tasks: [...ele.tasks, newtask],
-            taskCounts: {
-              ...ele.taskCounts,
-              active: ele.taskCounts.active + 1,
-              newTask: ele.taskCounts.newTask + 1,
-            },
-          };
-        }
-        return ele;
-      });
-
-      localStorage.setItem("employees", JSON.stringify(updatedAllUserData));
-      handelUpdatingTask(updatedAllUserData);
-      setInvalidUserWarning(false);
-
+    if (
+      title == "" ||
+      date == "" ||
+      assigne == "" ||
+      category == "" ||
+      description == ""
+    ) {
+      setGeneralWarning(true);
+      return;
     } else {
-      setInvalidUserWarning(true);
+      setGeneralWarning(false);
     }
 
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/api/auth/user/assigne",
+        {
+          title,
+          description,
+          date: new Date(date),
+          category,
+          assignee: assigne,
+        }
+      );
 
-    
+      setTimeout(() => {
+        setTitle("");
+        setDate("");
+        setCategory("");
+        setDescription("");
+        setAssigne("");
+      }, 1000);
+      setSuccess("task added successful");
+      setError("");
+
+      setTimeout(() => {
+        setSuccess("");
+      }, 1500);
+      
+      setReRendering(!reRendering);
+    } catch (err) {
+      setError("task addition unsuccessful");
+      setSuccess("");
+    }
   };
 
   return (
@@ -86,7 +75,6 @@ function TaskCreationForm({ allUserData, handelUpdatingTask }) {
               placeholder="Make a UI design"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              
             />
           </div>
           <div>
@@ -107,11 +95,6 @@ function TaskCreationForm({ allUserData, handelUpdatingTask }) {
               value={assigne}
               onChange={(e) => setAssigne(e.target.value)}
             />
-            {invalidUserWarning && (
-              <div className="text-red-600 font-semibold">
-                The Above User Does Not Exist
-              </div>
-            )}
           </div>
           <div className="mt-3">
             <h3 className="text-sm text-gray-300 mb-0.5">Category</h3>
@@ -139,7 +122,13 @@ function TaskCreationForm({ allUserData, handelUpdatingTask }) {
           </button>
         </div>
       </form>
-      {generalWarning && <div className="text-red-500 font-semibold items-center flex justify-center">Please fill all the fields</div>}
+      {generalWarning && (
+        <div className="text-red-500 font-semibold items-center flex justify-center">
+          Please fill all the fields
+        </div>
+      )}
+      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
     </div>
   );
 }
