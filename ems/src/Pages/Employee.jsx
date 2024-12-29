@@ -3,12 +3,12 @@ import Header from "../EmployeeComponents/Header";
 import TaskStatusList from "../EmployeeComponents/TaskStatusList";
 import TasksList from "../EmployeeComponents/TasksList";
 
-function Employee(props) {
+function Employee({userId}) {
   return (
     <div className="p-10">
       <Header></Header>
-      <TaskStatusList data={props.data}></TaskStatusList>
-      <TasksList data={props.data}></TasksList>
+      <TaskStatusList userId={userId} ></TaskStatusList>
+      {/* <TasksList data={props.data}></TasksList> */}
     </div>
   );
 }

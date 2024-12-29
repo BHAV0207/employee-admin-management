@@ -30,6 +30,7 @@ router.post("/register", async (req, res) => {
         firstName: name.split(" ")[0], 
         lastName: name.split(" ")[1] || "",
         email,
+        userId: newUser._id, 
       })
 
      await newEmployee.save();
@@ -56,16 +57,22 @@ router.post("/login", async (req, res) => {
     const pass = bcrypt.compare(existingUser.password, password);
     if (!pass) res.status(400).json({ message: "incorrect password" });
 
+
     const token = jwt.sign(
       {
         id: existingUser._id,
         role: existingUser.role,
+      
       },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    res.status(201).json({ token, role: existingUser.role });
+    res.status(201).json({
+      token,
+      role: existingUser.role,
+      id : existingUser.id,
+    });
   } catch (err) {
     res.status(500).json({ message: "server error" });
   }

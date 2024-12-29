@@ -13,7 +13,6 @@ function Assigne({reRendering}) {
           "http://localhost:4000/api/auth/user/AllEmployees"
         );
         setEmployees(res.data);
-        // console.log(res.data);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch employee data");

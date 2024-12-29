@@ -13,7 +13,7 @@ import RegisterPage from "./Pages/RegisterPage";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 
 function App() {
-  let [user, setUser] = useState(null);
+  let [userId, setUserId] = useState(null);
   let [currentLoggedInUsersData, setCurrentLoggedInUsersData] = useState(null);
 
   let [allUserData, setAllUserData] = useState(null);
@@ -61,18 +61,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login></Login>}></Route>
+        <Route path="/" element={<Login setUserId={setUserId}></Login>}></Route>
         <Route path="/register" element={<RegisterPage></RegisterPage>} />
         <Route
           path="/employee"
           element={
             <ProtectedRoutes
               role="user"
-              element={
-                <Employee
-                  data={currentLoggedInUsersData}
-                ></Employee>
-              }
+              element={<Employee userId={userId}></Employee>}
             ></ProtectedRoutes>
           }
         />
@@ -81,34 +77,12 @@ function App() {
           element={
             <ProtectedRoutes
               role="admin"
-              element={
-                <Admin
-                  changeUser={setUser}
-                  data={currentLoggedInUsersData}
-                  allUserData={allUserData}
-                  handelUpdatingTask={handelUpdatingTask}
-                ></Admin>
-              }
+              element={<Admin></Admin>}
             ></ProtectedRoutes>
           }
         />
         <Route path="*" element={<Navigate to={"/"} replace></Navigate>} />
       </Routes>
-
-      {/* {!user ? <Login login={Logging}></Login> : ""}
-      {user == "admin" ? (
-        <Admin
-          changeUser={setUser}
-          data={currentLoggedInUsersData}
-          allUserData={allUserData}
-          handelUpdatingTask={handelUpdatingTask}
-        ></Admin>
-      ) : user == "employee" ? (
-        <Employee
-          changeUser={setUser}
-          data={currentLoggedInUsersData}
-        ></Employee>
-      ) : null} */}
     </Router>
   );
 }

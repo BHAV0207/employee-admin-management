@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login({setUserId}) {
   const navigate = useNavigate();
   let [email, setEmail] = useState("");
   let [pass, setPass] = useState("");
@@ -14,9 +14,10 @@ function Login() {
     try {
       const res = await axios.post("http://localhost:4000/api/auth/login", {
         email,
-        pass,
+        password : pass,
       });
-      const { token, role } = res.data;
+      const { token, role , id} = res.data;
+      setUserId(id);
       localStorage.setItem("token", token);
       if (role === "admin") navigate("/admin");
       else if (role === "user") navigate("/employee");
@@ -28,10 +29,14 @@ function Login() {
   return (
     <div className="flex h-screen w-screen justify-center items-center">
       <div className="border-emerald-500 border-2 p-20">
+        
         <form
           onSubmit={submittingForm}
           className="flex flex-col justify-center items-center"
         >
+           <h1 className="text-4xl font-semibold text-emerald-500 mb-3">
+            Login
+          </h1>
           <input
             type="email"
             placeholder="enter your email"
