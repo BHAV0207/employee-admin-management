@@ -3,8 +3,10 @@ import React from "react";
 function AdminHeader(props) {
 
   const logout = () => {
-    localStorage.setItem('loggedInUser' , '')
-    props.changeUser('')
+    localStorage.removeItem("token");
+    setTimeout(() => {
+      navigate("/");
+    }, 500);
   }
   return (
     <div className="flex items-center justify-between">
