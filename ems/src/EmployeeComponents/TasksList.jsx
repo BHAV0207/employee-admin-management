@@ -6,11 +6,12 @@ import NewTask from "./NewTask";
 import { useState , useEffect } from "react";
 import axios from 'axios'
 
-function TasksList({userId}) {
+function TasksList({userId ,setTrigger, trigger}) {
   const [allUserTasks, setAllUserTasks] = useState([]);
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  // const [updateTrigger, setUpdateTrigger] = useState(false);
 
 
   
@@ -29,7 +30,7 @@ function TasksList({userId}) {
     };
 
     fetchingTasks();
-  }, []);
+  }, [trigger]);
 
   useEffect(() => {
     if (allUserTasks.length > 0) {
@@ -37,6 +38,17 @@ function TasksList({userId}) {
       setTask(MatchedTask.tasks || null);
     }
   }, [allUserTasks, userId]);
+
+
+  const handleTaskUpdate = (taskId, status) => {
+    setTask((prevTasks) =>
+      prevTasks.map((task) =>
+        task._id === taskId
+          ? { ...task, completed: status === "completed", failed: status === "failed", active: false }
+          : task
+      )
+    );
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -56,16 +68,16 @@ function TasksList({userId}) {
       {task?.map((ele , key) => {
         console.log(ele);
         if(ele?.active){
-          return <AcceptTask ele={ele}></AcceptTask>
+          return <AcceptTask ele={ele} onUpdate={handleTaskUpdate}></AcceptTask>
         }
         else if(ele?.completed){
-          return  <CompleteTask ele={ele}></CompleteTask>
+          return  <CompleteTask ele={ele} onUpdate={handleTaskUpdate}></CompleteTask>
         }
         else if(ele?.failed){
-          return <FailedTask ele={ele}></FailedTask>
+          return <FailedTask ele={ele} onUpdate={handleTaskUpdate}></FailedTask>
         }
         else{
-          return <NewTask ele={ele}></NewTask>
+          return <NewTask ele={ele} onUpdate={handleTaskUpdate}></NewTask>
         }
       })}
     </div>

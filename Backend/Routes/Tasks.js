@@ -38,12 +38,41 @@ router.post("/assigne", async (req, res) => {
   }
 });
 
-router.get("/:employeeId", async (req, res) => {
+
+
+router.patch("/updateTaskStatus/:taskId", async (req, res) => {
+  const { taskId } = req.params;
+  const { status } = req.body;
+
   try {
-    const tasks = await Task.find({ assignee: req.params.userId });
-    res.json(tasks);
+    const task = await Task.findById(taskId);
+    if (!task) return res.status(404).json({ message: "Task not found" });
+
+    task.completed = status === "completed";
+    task.failed = status === "failed";
+    task.active = false;
+    task.newTask = false;
+
+    await task.save();
+
+
+    const employee = await Employee.findById(task.assignee);
+    if (employee) {
+      if (status === "completed") {
+        employee.taskCounts.completed += 1;
+        employee.taskCounts.active -= 1;
+      } else if (status === "failed") {
+        employee.taskCounts.failed += 1;
+        employee.taskCounts.active -= 1;
+      }
+      await employee.save();
+    }
+
+    res
+      .status(200)
+      .json({ message: "Task updated successfully", task});
   } catch (err) {
-    res.status(500).json({ message: "Error fetching tasks" });
+    res.status(500).json({ message: "Error updating task" });
   }
 });
 

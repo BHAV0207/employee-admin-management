@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function TaskStatusList({ userId }) {
+function TaskStatusList({ userId  , setTrigger, trigger}) {
   const [allUserTasks, setAllUserTasks] = useState([]);
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  console.log(allUserTasks);
 
   useEffect(() => {
     const fetchingTasks = async () => {
@@ -22,7 +24,7 @@ function TaskStatusList({ userId }) {
     };
 
     fetchingTasks();
-  }, []);
+  }, [trigger]);
 
   useEffect(() => {
     if (allUserTasks.length > 0) {
