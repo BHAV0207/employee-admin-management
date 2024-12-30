@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 
-function CompleteTask({ele ,  onUpdate}) {
+function CompleteTask({ele ,  onUpdate ,setTrigger , trigger}) {
   const formattedDate = new Date(ele.taskDate).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
@@ -15,6 +15,7 @@ function CompleteTask({ele ,  onUpdate}) {
         status,
       });
       onUpdate(ele._id, status);
+      setTrigger(!trigger);
     } catch (err) {
       console.error("Failed to update task status", err);
     }

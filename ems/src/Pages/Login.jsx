@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login({setUserId}) {
+function Login({ setUserId }) {
   const navigate = useNavigate();
   let [email, setEmail] = useState("");
   let [pass, setPass] = useState("");
@@ -14,9 +14,9 @@ function Login({setUserId}) {
     try {
       const res = await axios.post("http://localhost:4000/api/auth/login", {
         email,
-        password : pass,
+        password: pass,
       });
-      const { token, role , id} = res.data;
+      const { token, role, id } = res.data;
       setUserId(id);
       localStorage.setItem("token", token);
       if (role === "admin") navigate("/admin");
@@ -27,27 +27,26 @@ function Login({setUserId}) {
   };
 
   return (
-    <div className="flex h-screen w-screen justify-center items-center">
-      <div className="border-emerald-500 border-2 p-20">
-        
+    <div className="flex h-screen w-screen justify-center items-center px-4">
+      <div className="border-emerald-500 border-2 p-6 md:p-20 w-full max-w-md">
         <form
           onSubmit={submittingForm}
           className="flex flex-col justify-center items-center"
         >
-           <h1 className="text-4xl font-semibold text-emerald-500 mb-3">
+          <h1 className="text-4xl font-semibold text-emerald-500 mb-3">
             Login
           </h1>
           <input
             type="email"
             placeholder="enter your email"
-            className="bg-transparent border-2 border-emerald-500 outline-none mx-5 py-2 px-4 rounded-md"
+            className="bg-transparent border-2 border-emerald-500 outline-none w-full py-2 px-4 rounded-md mb-4"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="enter your password"
-            className="bg-transparent border-2 border-emerald-500 outline-none m-5 py-2 px-4 rounded-md"
+            className="bg-transparent border-2 border-emerald-500 outline-none w-full m-5 py-2 px-4 rounded-md"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
           />

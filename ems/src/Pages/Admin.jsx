@@ -4,13 +4,15 @@ import AssignedTaskList from "../AdminCoomp./AssignedTaskList";
 import AdminHeader from "../AdminCoomp./AdminHeader";
 
 function Admin() {
-
-  let [reRendering , setReRendering] = useState(false);
+  let [reRendering, setReRendering] = useState(false);
 
   return (
-    <div className="p-10">
-      <AdminHeader ></AdminHeader>
-      <TaskCreationForm setReRendering={setReRendering} reRendering={reRendering}></TaskCreationForm>
+    <div className="p-4 md:p-10">
+      <AdminHeader></AdminHeader>
+      <TaskCreationForm
+        setReRendering={setReRendering}
+        reRendering={reRendering}
+      ></TaskCreationForm>
       <AssignedTaskList reRendering={reRendering}></AssignedTaskList>
     </div>
   );

@@ -11,9 +11,6 @@ function TasksList({userId ,setTrigger, trigger}) {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  // const [updateTrigger, setUpdateTrigger] = useState(false);
-
-
   
   useEffect(() => {
     const fetchingTasks = async () => {
@@ -64,20 +61,19 @@ function TasksList({userId ,setTrigger, trigger}) {
 
 
   return (
-    <div className=" flex mt-10  gap-5  justify-start items-center overflow-x-auto flex-nowrap h-[55%] py-10">
+    <div className="flex mt-5 md:mt-10 gap-3 md:gap-5 justify-start items-center overflow-x-auto flex-nowrap h-auto md:h-[55%] py-5 md:py-10">
       {task?.map((ele , key) => {
-        console.log(ele);
         if(ele?.active){
-          return <AcceptTask ele={ele} onUpdate={handleTaskUpdate}></AcceptTask>
+          return <AcceptTask ele={ele} onUpdate={handleTaskUpdate} setTrigger={setTrigger} trigger={trigger}></AcceptTask>
         }
         else if(ele?.completed){
-          return  <CompleteTask ele={ele} onUpdate={handleTaskUpdate}></CompleteTask>
+          return  <CompleteTask ele={ele} onUpdate={handleTaskUpdate} setTrigger={setTrigger} trigger={trigger}></CompleteTask>
         }
         else if(ele?.failed){
-          return <FailedTask ele={ele} onUpdate={handleTaskUpdate}></FailedTask>
+          return <FailedTask ele={ele} onUpdate={handleTaskUpdate} setTrigger={setTrigger} trigger={trigger}></FailedTask>
         }
         else{
-          return <NewTask ele={ele} onUpdate={handleTaskUpdate}></NewTask>
+          return <NewTask ele={ele} onUpdate={handleTaskUpdate} setTrigger={setTrigger} trigger={trigger}></NewTask>
         }
       })}
     </div>
