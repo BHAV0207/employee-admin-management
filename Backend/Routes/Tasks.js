@@ -40,7 +40,7 @@ router.post("/assigne", async (req, res) => {
 
 router.get("/:employeeId", async (req, res) => {
   try {
-    const tasks = await Task.find({ assignee: req.params.employeeId });
+    const tasks = await Task.find({ assignee: req.params.userId });
     res.json(tasks);
   } catch (err) {
     res.status(500).json({ message: "Error fetching tasks" });

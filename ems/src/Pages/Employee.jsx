@@ -8,7 +8,7 @@ function Employee({userId}) {
     <div className="p-10">
       <Header></Header>
       <TaskStatusList userId={userId} ></TaskStatusList>
-      {/* <TasksList data={props.data}></TasksList> */}
+      <TasksList userId={userId}></TasksList>
     </div>
   );
 }
