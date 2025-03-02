@@ -12,10 +12,13 @@ function Login({ setUserId }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:4000/api/auth/login", {
-        email,
-        password: pass,
-      });
+      const res = await axios.post(
+        "https://employee-admin-management-backend.onrender.com/api/auth/login",
+        {
+          email,
+          password: pass,
+        }
+      );
       const { token, role, id } = res.data;
       setUserId(id);
       localStorage.setItem("token", token);

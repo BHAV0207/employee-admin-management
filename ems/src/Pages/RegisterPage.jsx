@@ -17,12 +17,15 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:4000/api/auth/register", {
-        name: username, 
-        email,
-        password: pass, 
-        role,
-      });
+      const res = await axios.post(
+        "https://employee-admin-management-backend.onrender.com/api/auth/register",
+        {
+          name: username,
+          email,
+          password: pass,
+          role,
+        }
+      );
       setSuccess("Registration successful. You can now log in.");
       setError("");
       setTimeout(() => navigate("/"), 1500);

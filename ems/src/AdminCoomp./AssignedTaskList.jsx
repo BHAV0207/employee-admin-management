@@ -10,7 +10,7 @@ function Assigne({ reRendering }) {
     const fetchingUsers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/api/auth/user/AllEmployees"
+          "https://employee-admin-management-backend.onrender.com/api/auth/user/AllEmployees"
         );
         setEmployees(res.data);
         setLoading(false);

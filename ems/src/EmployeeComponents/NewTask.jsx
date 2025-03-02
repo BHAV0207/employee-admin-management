@@ -14,7 +14,7 @@ function NewTask({ ele, onUpdate, setTrigger, trigger }) {
     try {
       setIsDisabled(true);
       await axios.patch(
-        `http://localhost:4000/api/auth/user/updateTaskStatus/${ele._id}`,
+        `https://employee-admin-management-backend.onrender.com/api/auth/user/updateTaskStatus/${ele._id}`,
         {
           status,
         }
